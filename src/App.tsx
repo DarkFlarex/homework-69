@@ -4,8 +4,6 @@ import Toolbar from "./components/Toolbar/Toolbar";
 import SearchTvShow from "./components/SearchTvShow/SearchTvShow";
 import TvShowDisplay from "./components/TvShowDisplay/TvShowDisplay";
 
-
-
 const App: React.FC = () => {
     return (
         <main className="container">
