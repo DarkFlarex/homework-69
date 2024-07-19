@@ -3,6 +3,7 @@ import axios from 'axios';
 import { RootState } from '../app/store';
 import {TvShow} from '../types';
 
+
 export const fetchTvShows = createAsyncThunk<TvShow[], string, { state: RootState }>(
     'searchTvShow/fetchTvShows',
     async (query) => {
