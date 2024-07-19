@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTvShows } from './TvShowThunk';
-import { TvShow } from '../types';
+import { fetchTvShows, fetchTvShowDisplay } from './TvShowThunk';
+import { TvShow, TvShowDisplay } from '../types';
 import {RootState} from "../app/store";
 
 export interface SearchTvShowState {
     shows: TvShow[];
+    showDisplay: TvShowDisplay | null;
     fetchLoading: boolean;
 }
 
 const initialState: SearchTvShowState = {
     shows: [],
+    showDisplay: null,
     fetchLoading: false,
 };
 
@@ -28,9 +30,20 @@ export const tvShowSlice = createSlice({
             })
             .addCase(fetchTvShows.rejected, (state) => {
                 state.fetchLoading = false;
+            })
+            .addCase(fetchTvShowDisplay.pending, (state) => {
+                state.fetchLoading = true;
+            })
+            .addCase(fetchTvShowDisplay.fulfilled, (state, { payload: showDisplay }) => {
+                state.fetchLoading = false;
+                state.showDisplay = showDisplay;
+            })
+            .addCase(fetchTvShowDisplay.rejected, (state) => {
+                state.fetchLoading = false;
             });
     },
 });
 
 export const searchTvShowReducer = tvShowSlice.reducer;
+export const selectAutocomplete = (state: RootState)=> state.TvShows.showDisplay;
 export const SearchShows = (state: RootState)=> state.TvShows.shows;
